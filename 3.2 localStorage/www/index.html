@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+        <title>Local Storage Demo</title>
+        <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+        <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+        <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+        <style>
+        #container
+            {
+                margin: 10px;
+            }
+        </style>
+        <script>
+        window.onload = function()
+        {
+            document.getElementById('btnSave').addEventListener('click', storeData);
+            document.getElementById('btnRetrieve').addEventListener('click', getData)
+        }
+        
+        function getData(e)
+        {
+            var band = localStorage.getItem('favoriteBand');
+            document.getElementById('result').innerHTML = band;
+        }
+        
+        function storeData(e)
+        {
+            var band = document.getElementById('favorite').value;
+            localStorage.setItem("favoriteBand", band);
+            var date = new Date();
+            localStorage.setItem("TimeStamp", date);
+        }
+        </script>
+    </head>
+    <body>
+        <div id="container">
+        <label for="favorite">Favorite Band</label>
+        <input type="text" id="favorite" />
+        <button id="btnSave">Save Band</button>
+        <script type="text/javascript" src="cordova.js"></script>
+        <div id="result"></div>
+        <button id="btnRetrieve">Retrieve Band</button>
+        </div>
+    
+    </body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+        <title>Blank App</title>
+        <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+        <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+        <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+        <style>
+            #footer
+            {
+                position: absolute;
+                bottom: 0;
+                width: 100%;
+            }
+        </style>
+    </head>
+    <body>
+        <div data-role="page" id="page1">
+            <div data-role="header">
+                <h1>UI Samples</h1>
+            </div> <!-- header -->
+            <div data-role="main" class="ui-content">
+                <button onclick="location.href='index.html#page2'">Press Me!</button>
+            </div> <!-- main -->
+            <div data-role="footer" id="footer">
+                <h2>LearnToProgram.tv</h2>
+            </div> <!-- footer -->
+        </div> <!-- page -->
+        
+        <div data-role="page" id="page2">
+            <div data-role="header">
+                <h1>UI Samples Page 2</h1>
+            </div> <!-- header -->
+            <div data-role="main" class="ui-content">
+                <button onclick="location.href='index.html#page1'">Press Me!</button>
+            </div> <!-- main -->
+            <div data-role="footer" id="footer">
+                <h2>LearnToProgram.tv</h2>
+            </div> <!-- footer -->
+        </div> <!-- page -->
+        
+        
+        <script type="text/javascript" src="cordova.js"></script>
+    </body>
+</html>

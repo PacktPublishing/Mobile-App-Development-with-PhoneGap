@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+        <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+        <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+        <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+        <title>Media</title>
+        <script>
+        var player;
+            
+        window.onload=function()
+        {
+            player = document.getElementById('myMusic');
+            document.getElementById('btnPlay').addEventListener('click', function(){
+               player.play(); 
+            });
+            document.getElementById('btnPause').addEventListener('click' ,function(){
+                player.pause();   
+            });
+            document.getElementById('btnStop').addEventListener('click', function(){
+                player.pause();
+                player.currentTime = 0;
+            });
+            $('#rngVolume').on("slidestop", function(){
+                    var volume = document.getElementById('rngVolume').value;
+                    console.log(volume);
+                    player.volume = volume;
+                    
+                });
+            
+        }
+        
+        </script>
+    </head>
+    <body>
+        <audio id="myMusic">
+            <source src="media/camera.mp3"/>
+        </audio>
+        <button id="btnPlay">Play</button>
+        <button id="btnPause">Pause</button>
+        <button id="btnStop">Stop</button>
+        <input type="range" id="rngVolume" min="0" max="1" step=".01" value=".5"/>
+        <script type="text/javascript" src="cordova.js" ></script>
+    </body>
+</html>

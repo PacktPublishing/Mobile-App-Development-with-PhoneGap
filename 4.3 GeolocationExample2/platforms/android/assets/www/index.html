@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+        <title>Location</title>
+        <script src="key.js"></script>
+        <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+        <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+        <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+        <script>
+        var xmlhttp;    
+        
+        window.onload=function()
+        {
+            //document.addEventListener('deviceready', init);
+            init();
+        }
+        
+        function init()
+        {
+            navigator.geolocation.getCurrentPosition(success, error);
+        }
+            
+        function success(position)
+        {
+            var lat = position.coords.latitude;
+            var long = position.coords.longitude;
+            
+            document.getElementById('lat').innerHTML = lat;
+            document.getElementById('long').innerHTML = long;
+            getAreaInfo(lat,long);
+        }
+            
+        function getAreaInfo(lat,long)
+        {
+            //https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=-33.8670,151.1957&radius=500&types=food&key=YOUR_API_KEY
+            
+            var url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=";
+            url += lat + ",";
+            url += long;
+            url += "&radius=500&types=food&key=" + key;
+            xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = processPlace;
+            xmlhttp.open("GET", url, true);
+            xmlhttp.send();
+            
+        }
+            
+        function processPlace()
+        {
+            var out="";
+            if(xmlhttp.readyState==4){
+                var theJSON = xmlhttp.responseText;
+                
+                var result = JSON.parse(theJSON);
+                var resultArray = result.results;
+                for(var x = 0; x < resultArray.length; x++)
+                {
+                    out += "<h2>" + resultArray[x].name + "</h2>";
+                    out += "<br/>";
+                    out += resultArray[x].vicinity;
+                }
+                
+                document.getElementById('result').innerHTML = out;
+            }
+        }
+            
+        function error(e)
+        {
+            alert(e.message);
+        }
+        </script>
+    </head>
+    <body>
+        <h1>Device Location</h1>
+        <p>Latitude: <ouput id="lat"></ouput></p>
+        <p>Longitude: <output id="long"></output></p>
+        <div id="result"></div>
+        <script type="text/javascript" src="cordova.js"></script>
+    </body>
+</html>

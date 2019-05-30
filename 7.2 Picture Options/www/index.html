@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+        <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />    
+        <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+        <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+        <style>
+            #imgArea
+            {
+                width: 100%;
+            }
+        </style>
+        <script>
+        window.onload=function()
+        {
+            document.getElementById('btnTakePicture').addEventListener('click', takePic);
+            document.getElementById('btnClear').addEventListener('click',function(){
+               document.getElementById('imgArea').src=""; 
+            });
+                                                                 
+        }
+        
+        function takePic(e)
+        {
+            var options = {
+                quality: 80,
+                destinationType: Camera.DestinationType.FILE_URI,
+                encodingType: Camera.EncodingType.JPEG,
+                mediaType: Camera.MediaType.PICTURE,
+                targetWidth: 1200,
+                targetHeight: 800
+            }
+            navigator.camera.getPicture(success,fail, options);
+        }
+            
+        function success(thePicture)
+        {
+            var image = document.getElementById('imgArea');
+            //alert(thePicture);
+            image.src = thePicture;
+        }
+            
+        function fail(e)
+        {
+            alert("Image failed: " + e.message);
+        }
+        </script>
+        <title>Pic Options</title>
+    </head>
+    <body>
+        <img id="imgArea" />
+        <button id="btnTakePicture">Say Cheese!</button>
+        <button id="btnClear">Clear Photo</button>
+        <script type="text/javascript" src="cordova.js"></script>
+    </body>
+</html>

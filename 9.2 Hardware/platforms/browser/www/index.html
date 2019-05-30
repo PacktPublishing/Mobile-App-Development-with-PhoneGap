@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+        <title>Hardware</title>
+        <script>
+            window.onload=function()
+            {
+                var out="";
+                out += "Cordova Version: " + device.cordova;
+                out += "<br/>Device Model: " + device.model;
+                out += "<br/>Device Platform: " + device.platform;
+                out += "<br/>UUID: " + device.uuid;
+                out += "<br/>Version: " + device.version;
+                out += "<br/>Manufacturer: " + device.manufacturer;
+                out += "<br/>Serial: " + device.serial;
+                document.getElementById('result').innerHTML = out;
+                
+                //Network Information
+                var networkType = navigator.connection.type;
+                var conType = {};
+                conType[Connection.UNKOWN] = "Connection Unknown";
+                conType[Connection.ETHERNET] = "Ethernet";
+                conType[Connection.WIFI] = "wifi";
+                conType[Connection.CELL_2G] = "Cell";
+                conType[Connection.CELL_3G] = "Cell";
+                conType[Connection.CELL_4G] = "Cell";
+                conType[Connection.CELL] = "Cell";
+                conType[Connection.NONE] = "None";
+                document.getElementById('networkResult').innerHTML = conType[networkType];
+            
+                var watchId = navigator.compass.watchHeading(success, error, {frequency: 100});
+                
+                //Battery Status
+                window.addEventListener('batterystatus', onBatteryStatusChange, false);
+                
+//                window.addEventListener('batterylow', onBatteryStatusLow, false);
+//                
+//                window.addEventListener('batterycritical', onBatteryCritical, false);
+//                
+                function onBatteryStatusChange(status)
+                {
+                    alert("Battery Level: " + status.level + " Plugged in: " + status.isPlugged);
+                }
+                
+                
+            }
+            
+            function success(heading)
+            {
+                document.getElementById('orientation').innerHTML = heading.magneticHeading;
+            }
+            
+            function error(error)
+            {
+                alert("Compass Error: " + error.code);
+            }
+        
+            
+            
+        </script>
+    </head>
+    <body>
+        <h1>Hardware</h1>
+        <div id="result"></div>
+        <script type="text/javascript" src="cordova.js"></script>
+        <h1>Network Information</h1>
+        <div id="networkResult"></div>
+        <h1>Orientation</h1>
+        <div id="orientation"></div>
+    </body>
+</html>

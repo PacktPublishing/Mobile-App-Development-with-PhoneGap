@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+        <title>SQLLite DB App</title>
+        <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+        <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+        <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+        <script>
+        var db;
+            
+        window.onload=function()
+        {
+            document.getElementById('btnSave').addEventListener('click', saveData);
+            db = window.openDatabase("employees",  "1.0", "LearnToProgram", 200000);
+        }
+        
+        function saveData(e)
+        {
+            db.transaction(saveRecord, onSuccess, onError);
+        }
+            
+        function saveRecord(transaction)
+        {
+            var name= document.getElementById('name').value;
+            var email = document.getElementById('email').value;
+            transaction.executeSql('CREATE TABLE IF NOT EXISTS employeesList (id INTEGER PRIMARY KEY AUTOINCREMENT, Name TEXT NOT NULL, Email TEXT NOT NULL) ');
+            
+            var sql= "INSERT INTO employeesList (Name,Email) VALUES ('" + name +"', '" + email + "')";
+            console.log(sql);
+            transaction.executeSql(sql);
+            transaction.executeSql("SELECT * FROM employeesList", [], getSuccess, getError);
+        }
+        function getSuccess(tx, result)
+        {
+            var rows = result.rows;
+            for(var x=0; x< rows.length; x++){
+                var name = result.rows[x].Name;
+                var email = result.rows[x].Email;
+                var out = "<li>" + name + "<br/>" + email + "</li>";
+                document.getElementById('members').innerHTML += out;
+            }
+            
+            $('#members').listview('refresh');
+        }
+        function getError(e)
+        {
+            console.log(e);
+        }
+            
+        function onSuccess()
+        {
+            console.log("Record Saved");
+        }
+            
+        function onError(error)
+        {
+            console.log(error);
+        }
+        </script>
+    </head>
+    <body>
+        <div data-role="page">
+        <div data-role="header"><h1>Database Storage</h1></div>
+        <div data-role="main" class="ui-content">
+        <label for="name">Name</label>
+        <input type="text" id="name" />
+        <label for="email">Email</label>
+        <input type="text" id="email" />
+        <button id="btnSave" type="submit">Save</button>
+        <ul id="members" data-role="listview">
+        </ul>
+        <script type="text/javascript" src="cordova.js"></script>
+        </div><!-- main-->
+        </div><!-- page -->
+    </body>
+</html>

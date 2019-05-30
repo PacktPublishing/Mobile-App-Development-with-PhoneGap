@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+        <title>Accelerometer</title>
+        <style>
+        #blockRed
+            {
+                background-color: #aa0000;
+                width: 50px;
+                height: 50px;
+            }
+        </style>
+        <script>
+            var xPos=0;
+            window.onload = function()
+            {
+                var watchID = navigator.accelerometer.watchAcceleration(success, fail, {frequency: 100});
+                
+            }
+            
+            function success(accel)
+            {   
+                
+                if(accel.x < 0){
+                    xPos = xPos + (Math.abs(accel.x));
+                    document.getElementById('blockRed').style.marginLeft = xPos + "px";
+                } else
+                {
+                    xPos = xPos + (accel.x * -1);
+                    document.getElementById('blockRed').style.marginLeft = xPos + "px";
+                }
+                
+                document.getElementById('outX').innerHTML = "X:" + accel.x;
+                document.getElementById('outY').innerHTML = "<br/>Y:" + accel.y;
+                document.getElementById('outZ').innerHTML = "<br/>Z:" + accel.z;
+            }
+            
+            function fail(e)
+            {
+                alert("Accelerometer Error");
+            }
+        </script>
+    </head>
+    <body>
+        <div id="blockRed"></div>
+        <output id="outX"></output>
+        <output id="outY"></output>
+        <output id="outZ"></output>
+        
+        <script type="text/javascript" src="cordova.js"></script>
+        
+    </body>
+</html>

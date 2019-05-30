@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+        <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />    
+        <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+        <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+        <style>
+            #imgArea
+            {
+                border: 1px solid black;
+                max-width: 600px;
+            }
+        </style>
+        <script>
+        window.onload=function()
+        {
+            document.getElementById('btnTakePicture').addEventListener('click', takePic);
+            document.getElementById('btnClear').addEventListener('click',function(){
+               document.getElementById('imgArea').src=""; 
+            });
+                                                                 
+        }
+        
+        function takePic(e)
+        {
+            var options = {
+                quality: 50,
+                destinationType: Camera.DestinationType.FILE_URI,
+                encodingType: Camera.EncodingType.JPEG,
+                mediaType: Camera.MediaType.PICTURE,
+                targetWidth: 600,
+                targetHeight: 400
+        
+            }
+            
+            //Convert to Thumbnail
+            if(( $("#thumbs").is(':checked')))
+                {
+                    options.targetWidth = 150;
+                    options.targetHeight = 100;
+                }
+            
+            if(( $("#hq").is(':checked')))
+                {
+                    options.quality = 90;
+                }
+            
+            navigator.camera.getPicture(success,fail, options);
+        }
+            
+        function success(thePicture)
+        {
+            var image = document.getElementById('imgArea');
+            image.src = thePicture;
+        }
+            
+        function fail(e)
+        {
+            alert("Image failed: " + e.message);
+        }
+        </script>
+        <title>Pic Options</title>
+    </head>
+    <body>
+        <img id="imgArea" />
+        <button id="btnTakePicture">Say Cheese!</button>
+        <button id="btnClear">Clear Photo</button>
+        <label for="thumbs">Thumbnails</label>
+        <input type="checkbox" id="thumbs" />
+        <label for="hq">High Quality</label>
+        <input type="checkbox" id="hq" />
+        <script type="text/javascript" src="cordova.js"></script>
+        
+    </body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+        <title>Accelerometer</title>
+        <script>
+            window.onload = function()
+            {
+                var watchID = navigator.accelerometer.watchAcceleration(success, fail, {frequency: 100});
+                
+            }
+            
+            function success(accel)
+            {   
+                document.getElementById('outX').innerHTML = "X:" + accel.x;
+                document.getElementById('outY').innerHTML = "<br/>Y:" + accel.y;
+                document.getElementById('outZ').innerHTML = "<br/>Z:" + accel.z;
+            }
+            
+            function fail(e)
+            {
+                alert("Accelerometer Error");
+            }
+        </script>
+    </head>
+    <body>
+        <output id="outX"></output>
+        <output id="outY"></output>
+        <output id="outZ"></output>
+        <script type="text/javascript" src="cordova.js"></script>
+    </body>
+</html>

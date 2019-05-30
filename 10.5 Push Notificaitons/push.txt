@@ -1,0 +1,2 @@
+phonegap push --deviceID dCWxCIwZU0M:APA91bEQMgerLOE1rj7DgwMag4fUsI4skLeRRPXWlvwTY4Ws6l93LmiwSsfmFnio0jXgv7mtQrZu5-YNwkEjVjLDtpu0vHT7kR-xPyfcaovgtlnIb1WAHJmxg8UiEyh10EffCmYikYTF --service gcm --payload "{ \"data\":{ \"title\": \"LearnToProgram.tv\", \"message\": \"PhoneGap Push Notification\"} }"
+
